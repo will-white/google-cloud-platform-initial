@@ -1,0 +1,56 @@
+<mat-sidenav-container fxFlexFill autosize>
+	<mat-sidenav #contentnav mode="side" opened="true" *ngIf="navLinks?.length > 0">
+		<div fxFlexFill fxLayout="column">
+			<div fxFlex="none">
+				<mat-toolbar fxFlex style="padding: 0">
+					<mat-nav-list fxFlex style="padding: 0; height: 100%">
+						<a mat-list-item fxFlex style="padding: 0; height: 100%" [routerLink]="['./']">
+							<mat-icon>{{ navLinks[0].icon }}</mat-icon>
+							<span *ngIf="!hideText" style="padding-left: 8px">{{ navLinks[0].text }}</span>
+						</a>
+					</mat-nav-list>
+				</mat-toolbar>
+			</div>
+			<div fxFlex style="overflow: auto">
+				<mat-nav-list fxFlex style="padding: 0; height: 100%" fxLayout="column">
+					<ng-container *ngFor="let navLink of navLinks | slice:1">
+						<a mat-list-item style="padding: 0;" [routerLink]="[navLink.route]">
+							<mat-icon>{{ navLink.icon }}</mat-icon>
+							<span *ngIf="!hideText" style="padding-left: 8px">{{ navLink.text }}</span>
+						</a>
+					</ng-container>
+				</mat-nav-list>
+			</div>
+			<div fxFlex="none">
+				<mat-toolbar fxFlex style="padding: 0">
+					<mat-nav-list fxFlex style="padding: 0; height: 100%">
+						<a mat-list-item fxFlex style="padding: 0; height: 100%" (click)="toggleText()">
+							<ng-container *ngIf="!hideText; else iconOnly">
+								<mat-icon>keyboard_arrow_left</mat-icon>
+								<span style="padding-left: 8px">Minimize</span>
+							</ng-container>
+						</a>
+					</mat-nav-list>
+				</mat-toolbar>
+			</div>
+		</div>
+	</mat-sidenav>
+
+	<mat-sidenav-content fxFlex fxLayout="column">
+		<!-- There's an issue with flex not working this way. Find fix later probably doing this: -->
+		<!-- https://stackoverflow.com/a/35837189 -->
+		<!-- single components will need to render properly :host { display: contents; } -->
+		<mat-toolbar>
+			<div fxFlex fxLayout>
+				<ng-content select="[actionbar]"></ng-content>
+			</div>
+		</mat-toolbar>
+		<div fxFlex style="overflow: auto">
+			<ng-content select="[body]"></ng-content>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #iconOnly>
+	<mat-icon>keyboard_arrow_right</mat-icon>
+</ng-template>

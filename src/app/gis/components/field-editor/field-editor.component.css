@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 12px;
+  max-width: 180px;
+}

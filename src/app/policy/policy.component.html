@@ -1,0 +1,13 @@
+<shared-side-nav-panel-container [navLinks]="navLinks">
+	<policy-toolbar fxFlex actionbar></policy-toolbar>
+	<ng-container body>
+		<mat-sidenav-container fxFlex autosize>
+			<mat-sidenav mode="side" opened>
+				<app-insured-tree></app-insured-tree>
+			</mat-sidenav>
+			<mat-sidenav-content>
+				<router-outlet></router-outlet>
+			</mat-sidenav-content>
+		</mat-sidenav-container>
+	</ng-container>
+</shared-side-nav-panel-container>

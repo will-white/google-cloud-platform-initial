@@ -1,0 +1,48 @@
+<div fxFlex fxLayoutAlign="start" fxLayout="column">
+	<div class="mat-subheading-2" style="margin: 0;">3 - L FARM & RANCH</div>
+	<div class="mat-body" style="margin: 0;">
+		TX-780973 - Haskell - Wheat
+	</div>
+</div>
+<div fxFlex fxLayoutAlign="center center">
+	<button mat-icon-button>
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+	<div class="mat-subheading-2" style="margin: 0;">Layout Name</div>
+	<button mat-icon-button>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+</div>
+<div fxFlex fxLayoutAlign="end center">
+	<button mat-icon-button>
+        <mat-icon>navigation</mat-icon>
+      </button>
+	<button mat-icon-button>
+        <mat-icon
+          aria-label="More Options Menu">edit</mat-icon>
+      </button>
+	<button mat-icon-button>
+        <mat-icon
+          [matMenuTriggerFor]="moreOptions"
+          aria-label="More Options Menu">more_vert</mat-icon>
+      </button>
+</div>
+
+<mat-menu #moreOptions="matMenu">
+	<button mat-menu-item>
+    <mat-icon>cloud_upload</mat-icon>
+    <span>Import</span>
+  </button>
+	<button mat-menu-item>
+    <mat-icon>merge_type</mat-icon>
+    <span>Commingle Production</span>
+  </button>
+	<button mat-menu-item disabled>
+    <mat-icon>delete</mat-icon>
+    <span>Insured</span>
+  </button>
+	<button mat-menu-item disabled>
+    <mat-icon>delete</mat-icon>
+    <span>Agency</span>
+  </button>
+</mat-menu>

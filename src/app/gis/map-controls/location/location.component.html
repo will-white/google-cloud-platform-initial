@@ -1,0 +1,7 @@
+<ng-container *ngIf="(mapService.location$ | async); let location;">
+	<mat-chip-list *ngIf="location?.County?.name" fxLayoutAlign="center center">
+		<mat-chip color="primary" selected="true">
+			<span>{{ location.County.name }}, {{ location.State.name }}</span>
+		</mat-chip>
+	</mat-chip-list>
+</ng-container>

@@ -1,0 +1,16 @@
+<!-- https://console.cloud.google.com/billing/018EAE-0810D9-3D9225/reports/cost-breakdown?orgonly=true&project=tough-melody-294806&supportedpurview=organizationId -->
+<mat-toolbar>Insured Name GOES HERE</mat-toolbar>
+<mat-sidenav-container fxFlexFill autosize>
+	<mat-sidenav mode="side" opened>
+		<app-insured-tree></app-insured-tree>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<nav mat-tab-nav-bar>
+			<a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive
+				#rla="routerLinkActive" [active]="rla.isActive">
+				{{ link.label }}
+			</a>
+		</nav>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

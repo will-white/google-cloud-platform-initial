@@ -1,0 +1,6 @@
+<mat-chip-list *ngIf="(mapService.coords$ | async); let coords;">
+	<mat-chip color="primary" selected="true">
+		<span>Lat: {{ coords.lat }}, Lon: {{ coords.lon }}</span>
+		<span *ngIf="(mapService.zoomLevel$ | async); let zoom;">, z: {{ zoom }}</span>
+	</mat-chip>
+</mat-chip-list>

@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="1rem">
+	<mat-card fxLayout="row" fxLayoutAlign="start" style="width: fit-content;">
+		<div fxLayoutGap="1rem">
+			<h4>Yields</h4>
+			<mat-form-field>
+				<mat-label>Prior Yield</mat-label>
+				<input matInput/>
+    </mat-form-field>
+				<mat-form-field>
+					<mat-label>Prior Yield Method</mat-label>
+					<input matInput/>
+    </mat-form-field>
+					<br />
+					<mat-form-field>
+						<mat-label>Approved Yield</mat-label>
+						<input matInput/>
+    </mat-form-field>
+						<mat-form-field>
+							<mat-label>Yield Limit</mat-label>
+							<input matInput/>
+    </mat-form-field>
+							<br />
+							<mat-form-field>
+								<mat-label>Average Yield</mat-label>
+								<input matInput/>
+    </mat-form-field>
+								<mat-form-field>
+									<mat-label>T-Yield</mat-label>
+									<input matInput/>
+    </mat-form-field>
+									<br />
+	</div>
+									<mat-divider [vertical]="true" style="margin-right: 1rem;"></mat-divider>
+									<div fxLayoutGap="1rem">
+										<h4>Coverage</h4>
+										<mat-form-field>
+											<mat-label>Production</mat-label>
+											<input matInput/>
+    </mat-form-field>
+											<mat-form-field>
+												<mat-label>Type</mat-label>
+												<input matInput/>
+    </mat-form-field>
+												<br />
+												<mat-form-field>
+													<mat-label>Map Area</mat-label>
+													<input matInput/>
+                        </mat-form-field>
+													<!-- <span fxLayout="column"> -->
+													<mat-checkbox>Complete</mat-checkbox>
+													<mat-checkbox>Verified</mat-checkbox>
+													<!-- </span> -->
+													<br />
+													<mat-form-field>
+														<mat-label>APH Number</mat-label>
+														<input matInput/>
+    </mat-form-field>
+														<mat-form-field>
+															<mat-label>APH Name</mat-label>
+															<input matInput/>
+    </mat-form-field>
+															<br />
+								</div>
+	</mat-card>
+	<mat-tab-group>
+		<mat-tab label="Database">Content 1</mat-tab>
+		<mat-tab label="Questions">Content 2</mat-tab>
+		<mat-tab label="Lines">Content 3</mat-tab>
+		<mat-tab label="Miscellaneous">Content 3</mat-tab>
+	</mat-tab-group>
+</div>

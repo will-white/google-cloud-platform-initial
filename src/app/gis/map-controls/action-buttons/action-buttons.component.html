@@ -1,0 +1,42 @@
+<div *ngIf="showLegend" style="margin-bottom: 2rem;">
+	<mat-card>
+		<gis-legend></gis-legend>
+	</mat-card>
+</div>
+<div fxLayout="column" fxLayoutGap=".5em" style="float: right;">
+	<button mat-mini-fab
+            color="primary"
+            matTooltip="Show/Hide Legend"
+            matTooltipPosition="left"
+            (click)="toggleLegend()">
+        <mat-icon>legend_toggle</mat-icon>
+    </button>
+	<button mat-mini-fab
+            color="primary"
+            (click)="showLayers()"
+            matTooltip="Add/Remove Layers"
+            matTooltipPosition="left">
+        <mat-icon>layers</mat-icon>
+    </button>
+	<button mat-mini-fab
+            color="primary"
+            matTooltip="Center to insured"
+            matTooltipPosition="left"
+            (click)="centerToInsured()">
+        <mat-icon>center_focus_strong</mat-icon>
+    </button>
+	<button mat-mini-fab
+            color="primary"
+            matTooltip="Zoom In"
+            matTooltipPosition="left"
+            (click)="zoomIn()">
+        <mat-icon>add</mat-icon>
+    </button>
+	<button mat-mini-fab
+            color="primary"
+            matTooltip="Zoom Out"
+            matTooltipPosition="left"
+            (click)="zoomOut()">
+        <mat-icon>remove</mat-icon>
+    </button>
+</div>

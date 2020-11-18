@@ -1,0 +1,8 @@
+// https://github.com/angular/components/issues/14621#issuecomment-697410470
+.mat-button {
+  .mat-menu-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

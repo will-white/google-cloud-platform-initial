@@ -1,0 +1,76 @@
+<div fxFlex fxLayout="column">
+	<div fxFlex>
+		<div fxFlex>
+			<nav mat-tab-nav-bar>
+				<a mat-tab-link (click)="activeLink = 'Field'" [active]="activeLink == 'Field'">Field</a>
+				<a mat-tab-link (click)="activeLink = 'Shared Insureds'"
+					[active]="activeLink == 'Shared Insureds'">Shared Insureds</a>
+			</nav>
+			<div>
+				<mat-form-field>
+					<mat-label>FARM #</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>TRACK #</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>FIELD #</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<br />
+				<mat-form-field>
+					<mat-label>Commodity</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Type</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Practice</mat-label>
+					<mat-select>
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<br />
+				<mat-form-field>
+					<mat-label>Intended Acres</mat-label>
+					<input matInput />
+            </mat-form-field>
+					<mat-form-field>
+						<mat-label>Planted Date</mat-label>
+						<input matInput [matDatepicker]="plantedDate" />
+						<mat-datepicker-toggle matSuffix [for]="plantedDate"></mat-datepicker-toggle>
+						<mat-datepicker #plantedDate></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Line</mat-label>
+						<mat-select>
+							<mat-option value="option">Option</mat-option>
+						</mat-select>
+					</mat-form-field>
+			</div>
+		</div>
+		<gis-map fxFlex></gis-map>
+	</div>
+	<div fxFlex>
+		<div>
+			Event Table goes here
+		</div>
+		<br />
+    Buttons go here
+    <button mat-raised-button (click)="back()">Close</button>
+  </div>
+	</div>

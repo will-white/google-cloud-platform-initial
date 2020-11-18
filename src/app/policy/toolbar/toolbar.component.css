@@ -1,0 +1,2 @@
+/* This is needed to remove host render element <policy-toolbar> */
+/* :host { display: contents; } */

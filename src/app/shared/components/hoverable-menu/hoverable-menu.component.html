@@ -1,0 +1,9 @@
+<!-- https://github.com/angular/components/issues/14621#issuecomment-697410470 -->
+<button mat-button (click)="menuTrigger.openMenu()">Menu
+  <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></div>
+</button>
+
+<mat-menu #menu="matMenu">
+	<button mat-menu-item>Item 1</button>
+	<button mat-menu-item>Item 2</button>
+</mat-menu>

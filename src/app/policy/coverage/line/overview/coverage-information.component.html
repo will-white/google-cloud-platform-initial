@@ -1,0 +1,109 @@
+<div fxFlexLayout fxLayoutGap="0.5rem" [formGroup]="form">
+	<mat-form-field>
+		<mat-label>Type</mat-label>
+		<mat-select formControlName="type">
+			<mat-option value="No Type-Specified">No Type-Specified</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Practice</mat-label>
+		<mat-select formControlName="practice">
+			<mat-option value="option">No Practice-Specified</mat-option>
+			<mat-option value="option">Non-Irrigated</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Insurance Options</mat-label>
+		<mat-select formControlName="insuranceOptions">
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<br />
+  <!-- https://stackblitz.com/angular/vkgggvyxdddn?file=src%2Fapp%2Fexample-tel-input-example.html -->
+	<fieldset #unitOptions formGroupName="unitOption">
+		<legend>Unit Option</legend>
+		<mat-form-field>
+			<mat-label>Code</mat-label>
+			<mat-select formControlName="code">
+				<mat-option value="BU">BU</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Basic - Optional #</mat-label>
+			<input matInput value="0111-1115" />
+          </mat-form-field>
+	</fieldset>
+	<br />
+	<mat-form-field>
+		<mat-label>Farm #</mat-label>
+		<input matInput formControlName="farmNumber" />
+        </mat-form-field>
+		<mat-form-field>
+			<mat-label>Farm Name</mat-label>
+			<input matInput  formControlName="farmName"/>
+        </mat-form-field>
+			<mat-form-field>
+				<mat-label>Share</mat-label>
+				<input matInput  formControlName="share"/>
+        </mat-form-field>
+				<mat-form-field>
+					<mat-label>Acres</mat-label>
+					<input matInput  formControlName="acres"/>
+        </mat-form-field>
+					<br />
+					<mat-form-field>
+						<mat-label>Plate Date</mat-label>
+						<input matInput [matDatepicker]="picker"  formControlName="planted"/>
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Uninsurable</mat-label>
+						<mat-select formControlName="uninsuredCodes">
+							<mat-option value="option">Option</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<fieldset formGroupName="mapArea">
+						<legend>Map Area</legend>
+						<mat-form-field>
+							<mat-label>Code</mat-label>
+							<mat-select formControlName="code">
+								<mat-option value="option">Option</mat-option>
+							</mat-select>
+						</mat-form-field>
+						<mat-checkbox formControlName="verified">Verified</mat-checkbox>
+					</fieldset>
+					<br />
+					<mat-checkbox formControlName="hasARCCoverage">ARC Coverage</mat-checkbox>
+					<mat-checkbox formControlName="excludeFromUDO">Exclude From UDO</mat-checkbox>
+					<br />
+        Other Shareholders
+					<mat-chip-list aria-label="Fish selection">
+						<mat-chip>One fish</mat-chip>
+						<mat-chip>Two fish</mat-chip>
+						<mat-chip color="primary" selected>Primary fish</mat-chip>
+						<mat-chip color="accent" selected>Accent fish</mat-chip>
+					</mat-chip-list>
+					<br />
+					<fieldset formGroupName="skipRow">
+						<legend>Skip Row</legend>
+						<mat-form-field>
+							<mat-label>Code</mat-label>
+							<mat-select formControlName="code">
+								<mat-option value="option">Option</mat-option>
+							</mat-select>
+						</mat-form-field>
+						<mat-form-field>
+							<mat-label>Factor</mat-label>
+							<input matInput formControlName="factor" />
+        </mat-form-field>
+							<mat-form-field>
+								<mat-label>Percent Planted</mat-label>
+								<input matInput formControlName="percentPlanted" />
+        </mat-form-field>
+								<mat-form-field>
+									<mat-label>Row Width</mat-label>
+									<input matInput  formControlName="rowWidth"/>
+        </mat-form-field>
+					</fieldset>
+</div>

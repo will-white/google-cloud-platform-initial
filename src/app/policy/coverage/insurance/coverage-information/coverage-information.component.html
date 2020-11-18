@@ -1,0 +1,98 @@
+<div fxLayout="row wrap" fxLayoutGap="0.5rem" fxLayoutAlign="start center">
+	<mat-form-field>
+		<mat-label>Plan</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Level</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Price Percent</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Options</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Type</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Practice</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Unit</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Added County</mat-label>
+		<mat-select>
+			<mat-option value="option">Option</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<!-- <mat-form-field> -->
+	<mat-checkbox>New Producer</mat-checkbox>
+	<!-- </mat-form-field> -->
+	<mat-form-field fxFlex="auto">
+		<mat-label>Assignment of Indemnity</mat-label>
+		<input matInput />
+</mat-form-field>
+		<mat-form-field>
+			<mat-label>Intended Acres</mat-label>
+			<input matInput />
+</mat-form-field>
+			<mat-form-field>
+				<mat-label>Previous Company</mat-label>
+				<mat-select>
+					<mat-option value="option">Option</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Prev. Policy Number</mat-label>
+				<input matInput />
+</mat-form-field>
+				<section>
+					<h5>Dates</h5>
+					<mat-form-field>
+						<mat-label>Insured Sign</mat-label>
+						<input matInput [matDatepicker]="insuredDate" />
+						<mat-datepicker-toggle matSuffix [for]="insuredDate"></mat-datepicker-toggle>
+						<mat-datepicker #insuredDate></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Agent Sign</mat-label>
+						<input matInput [matDatepicker]="agentDate" />
+						<mat-datepicker-toggle matSuffix [for]="agentDate"></mat-datepicker-toggle>
+						<mat-datepicker #agentDate></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Company Received</mat-label>
+						<input matInput [matDatepicker]="companyDate" />
+						<mat-datepicker-toggle matSuffix [for]="companyDate"></mat-datepicker-toggle>
+						<mat-datepicker #companyDate></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Signing Agent</mat-label>
+						<mat-select>
+							<mat-option value="option">Option</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</section>
+</div>

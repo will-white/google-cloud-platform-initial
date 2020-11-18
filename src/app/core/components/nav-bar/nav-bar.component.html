@@ -1,0 +1,45 @@
+<app-navagation-pending></app-navagation-pending>
+<app-request-pending></app-request-pending>
+<mat-toolbar color="primary">
+	<div fxFlex fxLayout>
+		<div fxFlex fxLayout>
+			<button mat-icon-button matTooltip="Toggle Sidenav" (click)="sidenavToggle.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+			<a mat-button><img src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg" style="height: 26px; margin: 0 4px 3px 0; vertical-align: middle;">Material</a>
+				<app-year-picker></app-year-picker>
+		</div>
+		<div fxFlex fxLayoutAlign="center center">
+			Search goes here
+		</div>
+		<div fxFlex fxLayoutAlign="flex-end center" fxLayoutGap="0.10rem">
+			<button mat-icon-button matTooltip="Agency" aria-label="Example icon-button with a menu">
+        <mat-icon>group</mat-icon>
+      </button>
+			<button mat-icon-button matTooltip="Notifications" (click)="notificationsToggle.emit()">
+        <mat-icon [matBadge]="(notificationService.notifications$ | async).length" matBadgeColor="warn">notifications</mat-icon>
+      </button>
+			<button mat-icon-button matTooltip="Account Settings" [matMenuTriggerFor]="accountSettings" aria-label="Example icon-button with a menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+		</div>
+	</div>
+</mat-toolbar>
+
+<mat-menu #notifications="matMenu">
+	<button mat-menu-item *ngFor="let notification of notificationService.notifications$ | async">
+    <mat-icon>settings</mat-icon>
+    <span>{{ notification.title }}</span>
+  </button>
+</mat-menu>
+
+<mat-menu #accountSettings="matMenu">
+	<button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button>
+	<button mat-menu-item disabled>
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Log out</span>
+  </button>
+</mat-menu>

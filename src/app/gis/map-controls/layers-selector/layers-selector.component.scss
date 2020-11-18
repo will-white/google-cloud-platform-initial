@@ -1,0 +1,24 @@
+.shell {
+    max-height: 600px;
+    height: 600px;
+    // overflow: hidden;
+}
+
+mat-tab-group {
+    height: 550px;
+    width: 500px;
+}
+
+.mat-tab-body-wrapper {
+    width: 100%;
+}
+
+ol {
+    margin: 0;
+    list-style-type: none;
+    padding: 0.5em;
+
+    li {
+        padding: 0.5em 0;
+    }
+}

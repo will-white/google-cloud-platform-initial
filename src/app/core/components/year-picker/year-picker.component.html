@@ -1,0 +1,7 @@
+<button mat-button
+        [matMenuTriggerFor]="reinYears">{{ (yearPickerService.reinYear$ | async) || 'Unknown' }}<mat-icon>arrow_drop_down</mat-icon></button>
+<mat-menu #reinYears="matMenu">
+	<button *ngFor="let year of years"
+            mat-menu-item
+            (click)="changeYear(year)">{{ year }}</button>
+</mat-menu>

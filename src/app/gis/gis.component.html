@@ -1,0 +1,15 @@
+<shared-side-nav-panel-container>
+	<ng-container navtoolbar>
+		<mat-icon>map</mat-icon>
+		GIS
+	</ng-container>
+	<gis-side-nav navbody></gis-side-nav>
+	<gis-toolbar actionbar fxFlex></gis-toolbar>
+	<ng-container body>
+		<router-outlet *ngIf="(fieldService.selectedField$ | async); else mapOnly"></router-outlet>
+	</ng-container>
+</shared-side-nav-panel-container>
+
+<ng-template #mapOnly>
+	<gis-map fxFlex></gis-map>
+</ng-template>

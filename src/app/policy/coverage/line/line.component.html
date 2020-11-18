@@ -1,0 +1,52 @@
+<div fxLayout="column" [formGroup]="form">
+	<div fxFlex fxLayout>
+		<div fxFlex style="position: sticky; top: 0;">
+			<div class="mat-subheading-2" style="margin: 0;">
+				<span>
+          {{ this.form.get('overview').get('unitOption').get('code')?.value }}
+          {{ this.form.get('overview').get('unitOption').get('number').get('basic')?.value }}
+          -
+          {{ this.form.get('overview').get('unitOption').get('number').get('optional')?.value }}
+        </span>
+				<span>
+          {{ this.form.get('overview').get('practice')?.value }}
+        </span>
+				<span>
+          {{ this.form.get('overview').get('type')?.value }}
+        </span>
+				<span>
+          Line Number: {{ this.form.get('lineNumber')?.value }}
+        </span>
+			</div>
+			<div class="mat-body" style="margin: 0;">
+				<span>
+          Farm #: {{ this.form.get('overview').get('farmNumber')?.value }}
+        </span>
+			</div>
+		</div>
+		<div fxFlex="none" fxLayoutAlign="end center">
+			<mat-icon>verified</mat-icon>
+			<mat-checkbox style="margin-right: 16px;" formControlName="verified">Verified</mat-checkbox>
+		</div>
+	</div>
+	<nav mat-tab-nav-bar>
+		<a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+			[active]="rla.isActive">
+			{{ link.label }}
+		</a>
+	</nav>
+	<div style="padding: 8px;" fxLayoutGap="0.5rem">
+		<router-outlet></router-outlet>
+		<div fxLayoutGap="0.5rem">
+			<button mat-button>
+          <span>Save</span>
+      </button>
+			<button mat-button>
+          <span>Revert</span>
+      </button>
+		</div>
+	</div>
+</div>
+<pre>
+{{ this.form.value | json }}
+</pre>

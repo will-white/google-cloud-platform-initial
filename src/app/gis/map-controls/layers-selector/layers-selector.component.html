@@ -1,0 +1,52 @@
+<div class="shell" fxLayout="column">
+	<span fxFlex="nogrow">Show / Hide Layers</span>
+	<div fxLayout="row" fxFlex>
+		<div fxLayout="column">
+			<span>Available: </span>
+			<mat-tab-group vertical fxFlex>
+				<mat-tab [label]="group.value" *ngFor="let group of mapKind | keyvalue">
+					<ng-template matTabContent>
+						<ol fxLayout="column" fxFlex>
+							<li *ngFor="let mapLayer of filteredLayers(group.value) | async" fxLayout="row"
+								fxLayoutGap=".5em" style="width: 250px;">
+								<div fxFlex="nogrow" fxLayoutAlign="start center">
+									<button mat-icon-button
+                                            color="primary"
+                                            (click)="layersService.addLayer(mapLayer)"
+                                            [disabled]="mapLayer.selected">
+                                        <mat-icon [matTooltip]="mapLayer.selected ? 'Already Added' : undefined">add_box
+                                        </mat-icon>
+                                    </button>
+								</div>
+								<div fxFlex fxLayoutAlign="center center">{{ mapLayer.label }}</div>
+							</li>
+						</ol>
+					</ng-template>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+		<div fxFlex>
+			<span>Currently Selected: </span>
+			<ul fxLayout="column" style="width: 300px;">
+				<li *ngFor="let layer of layersService.selectedLayers$ | async" fxFlex fxLayout="row"
+					fxLayoutGap=".5em">
+					<div fxFlex="nogrow" fxLayoutAlign="start center">
+						<button mat-icon-button
+                                color="primary"
+                                (click)="layer.olLayer?.setVisible(!layer.olLayer?.getVisible())">
+                            <mat-icon>{{ layer.olLayer?.getVisible() ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+					</div>
+					<div fxFlex fxLayoutAlign="center center">{{ layer.label }}</div>
+					<div fxFlex="nogrow" fxLayoutAlign="end center">
+						<button mat-icon-button
+                                color="warn"
+                                (click)="layersService.removeLayer(layer)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
