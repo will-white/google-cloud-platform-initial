@@ -5,19 +5,19 @@ import VectorSource from "ol/source/Vector";
 
 import TileLayer from "ol/layer/Tile";
 import XYZ from "ol/source/XYZ";
-import { combineLatest, Subscription, Observable, Subject } from "rxjs";
+import { combineLatest, Observable, Subject } from "rxjs";
 import GeoJSON from "ol/format/GeoJSON";
 import SourceOsm from "ol/source/OSM";
 import SourceTileArcGISRest from "ol/source/TileArcGISRest";
-import { takeUntil, tap } from "rxjs/operators";
-import { insured } from "../services/insured";
-import { layout } from "../services/layout";
+import { takeUntil } from "rxjs/operators";
+import { Agency, Insured } from "../../shared/services/account.service";
+import { agentyTestJSON, layoutTestJSON } from "../data";
 
 export class MapLayerBuilder {
   constructor(
     private reinYear$: Observable<number>,
-    private insuredID$: Observable<number>,
-    private agencyID$: Observable<number>,
+    private insuredID$: Observable<Insured>,
+    private agencyID$: Observable<Agency>,
     private highRiskMapAreas$: Observable<number[]>,
     private tYieldMapAreas$: Observable<number[]>
   ) {}
@@ -29,28 +29,25 @@ export class MapLayerBuilder {
   }
 
   private buildLayerQueries(
-    type: MapLayerType,
+    layerType: MapLayerType,
     mapSubscription: Subject<unknown>,
     baseLayer: BaseLayer
   ): void {
-    switch (type) {
+    switch (layerType) {
       case MapLayerType.CLU:
       case MapLayerType.UsgsSoils:
       case MapLayerType.BreachedLevees:
         this.reinYear$.pipe(takeUntil(mapSubscription)).subscribe(year => {
-          updateQuery(baseLayer, type, {
+          updateQuery(baseLayer, layerType, {
             reinYear: year
           });
         });
 
       case MapLayerType.HighRisk:
         combineLatest([this.reinYear$, this.highRiskMapAreas$])
-          .pipe(
-            tap(console.log),
-            takeUntil(mapSubscription)
-          )
+          .pipe(takeUntil(mapSubscription))
           .subscribe(([reinYear, mapAreas]) => {
-            updateQuery(baseLayer, type, {
+            updateQuery(baseLayer, layerType, {
               reinYear,
               mapAreas
             });
@@ -60,7 +57,7 @@ export class MapLayerBuilder {
         combineLatest([this.reinYear$, this.tYieldMapAreas$])
           .pipe(takeUntil(mapSubscription))
           .subscribe(([reinYear, mapAreas]) => {
-            updateQuery(baseLayer, type, {
+            updateQuery(baseLayer, layerType, {
               reinYear,
               mapAreas
             });
@@ -69,20 +66,21 @@ export class MapLayerBuilder {
       case MapLayerType.Insured:
         combineLatest([this.reinYear$, this.insuredID$])
           .pipe(takeUntil(mapSubscription))
-          .subscribe(([reinYear, insuredID]) => {
-            updateQuery(baseLayer, type, {
+          .subscribe(([reinYear, insured]) => {
+            updateQuery(baseLayer, layerType, {
               reinYear,
-              insuredID
+              insuredID: insured.id
             });
           });
+        break;
 
       case MapLayerType.Agency:
         combineLatest([this.reinYear$, this.agencyID$])
           .pipe(takeUntil(mapSubscription))
-          .subscribe(([reinYear, agencyID]) => {
-            updateQuery(baseLayer, type, {
+          .subscribe(([reinYear, agency]) => {
+            updateQuery(baseLayer, layerType, {
               reinYear,
-              agencyID
+              agencyID: agency.id
             });
           });
     }
@@ -140,10 +138,11 @@ const buildBaseLayer = (
       });
 
     case MapLayerType.Insured:
+      console.log("test");
       return new VectorLayer({
         className,
         source: new VectorSource({
-          features: new GeoJSON().readFeatures(insured)
+          features: new GeoJSON().readFeatures(agentyTestJSON)
         }),
         zIndex: 100
       });
@@ -152,7 +151,7 @@ const buildBaseLayer = (
       return new VectorLayer({
         className,
         source: new VectorSource({
-          features: new GeoJSON().readFeatures(layout)
+          features: new GeoJSON().readFeatures(layoutTestJSON)
         }),
         zIndex: 99
       });
@@ -192,6 +191,7 @@ const buildBaseLayer = (
   }
 };
 
+/** https://gis.stackexchange.com/a/158700 */
 const updateQuery = (
   layer: BaseLayer,
   type: MapLayerType,
@@ -205,7 +205,9 @@ const updateQuery = (
       source.setUrl(XyzUrl(type, params));
     }
   } else if (layer instanceof VectorLayer) {
-    const source = layer.getSource();
+    const source: VectorSource = layer.getSource();
+    /** https://openlayers.org/en/latest/apidoc/module-ol_source_Vector-VectorSource.html#setUrl */
+    // source.setUrl()
   }
 };
 

@@ -1,4 +1,4 @@
-export const layout = {
+export const layoutTestJSON = {
   type: "FeatureCollection",
   features: [
     {

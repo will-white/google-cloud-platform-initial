@@ -1,4 +1,4 @@
-export const insured = {
+export const insuredTestJSON = {
   type: "FeatureCollection",
   features: [
     {

@@ -1,22 +1,13 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { MapService } from "./map.service";
-import { EMPTY, BehaviorSubject, Subject, fromEvent } from "rxjs";
+import { EMPTY, BehaviorSubject, Subject, interval } from "rxjs";
 import { MapLayer, MapLayerGroup, MapLayerType } from "../models";
 import { MapLayerBuilder } from "../utils/layer-builder";
 import { ReinYearService } from "../../shared/services/rein-year.service";
 import { StylesService } from "./styles.service";
 import { AccountService } from "../../shared/services/account.service";
-import { delay, filter, map,  take,    takeUntil,    tap } from "rxjs/operators";
-import {
-  Modify,
-  Select,
-  SelectEvent,
-  defaults as defaultInteractions,
-} from "ol/interaction";
-import MapBrowserEvent from "ol/MapBrowserEvent";
 import { ActivatedRoute } from "@angular/router";
 import { FieldService } from "./field.service";
-import { Feature } from 'ol/Feature';
 
 // https://viewer.nationalmap.gov/services/
 const AvailableLayers: MapLayer[] = [
@@ -57,19 +48,6 @@ const AvailableLayers: MapLayer[] = [
   new MapLayer(MapLayerGroup.Insured, MapLayerType.Insured, "Insured")
 ];
 
-const insuredSelect = new Select({
-    /* some logic on layer to decide if its features should be considered; return true if yes */
-  layers: (layer) => true, // layer.className_ === MapLayerType.Insured,
-    /* some logic on a feature and layer to decide if it should be selectable; return true if yes */
-  filter: function(feature, layer) {
-      return true;
-  },
-});
-
-const modify = new Modify({
-  features: insuredSelect.getFeatures()
-});
-
 @Injectable({
   providedIn: "root"
 })
@@ -82,18 +60,16 @@ export class LayersService implements OnDestroy {
   selectedLayers$ = this.selectedLayers.asObservable();
 
   constructor(
-    private route: ActivatedRoute,
     private userService: AccountService,
     private mapService: MapService,
     private styleService: StylesService,
     reinYearService: ReinYearService,
-    private fieldService: FieldService
   ) {
     // TODO: Add fake to preferences/user settings service to get selected
     // TODO: Add call to same service to update current layers
     this.mapLayerBuilder = new MapLayerBuilder(
       reinYearService.reinYear$,
-      EMPTY,
+      userService.insured$,
       userService.agency$,
       EMPTY,
       EMPTY
@@ -122,63 +98,6 @@ export class LayersService implements OnDestroy {
       this.selectedLayers.value.filter(l => l.name !== layer.name)
     );
     layer.dispose();
-  }
-
-  addInsuredLayer(insuredID: number): void {
-    const insuredLayer = this.availableLayers.find(
-        l => l?.type === MapLayerType.Insured
-      );
-    if (insuredLayer)
-      this.addLayer(insuredLayer);
-
-    fromEvent(this.mapService.map, "pointermove")
-      .pipe(
-        // tap(console.log),
-        filter((event: MapBrowserEvent) => !event.dragging),
-        takeUntil(insuredLayer.unsubscribe),
-        takeUntil(this.ngUnsubscribe)
-      )
-      .subscribe(event => 
-        this.mapService.map.getTargetElement().style.cursor = this.mapService.map.hasFeatureAtPixel(
-            event.pixel,
-            // {
-            //   layerFilter: (layer) => layer.className_ === MapLayerType.Insured
-            // }
-          )
-            ? "pointer"
-            : "");
-
-    fromEvent(insuredSelect, "select")
-      .pipe(
-        filter((s: SelectEvent) => s?.selected?.length > 0),
-        takeUntil(insuredLayer.unsubscribe),
-        takeUntil(this.ngUnsubscribe)
-      )
-      .subscribe(event => {
-        console.log("test");
-        this.fieldService.fieldSelected(event.selected[0]);
-      });
-
-    this.mapService.map.addInteraction(insuredSelect);
-
-    fromEvent(this.mapService.map, "postrender")
-      .pipe(delay(0), take(1))
-      .subscribe(_ => {
-        const insuredExtent = insuredLayer.olLayer.getSource().getExtent();
-        this.mapService.center(insuredExtent);
-      });
-  }
-
-  addModifyToInsuredLayer(): void {
-      this.mapService.map.addInteraction(modify);
-  }
-
-  removeModifyToInsuredLayer(): void {
-      this.mapService.map.removeInteraction(modify);
-  }
-
-  addAgencyLayer(): void {
-
   }
 
   ngOnDestroy(): void {

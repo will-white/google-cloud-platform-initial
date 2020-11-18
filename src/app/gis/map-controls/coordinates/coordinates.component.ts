@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterContentInit
+} from "@angular/core";
 import { MapService } from "../../services/map.service";
 
 @Component({
@@ -7,8 +12,17 @@ import { MapService } from "../../services/map.service";
   styleUrls: ["./coordinates.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoordinatesComponent implements OnInit {
+export class CoordinatesComponent implements AfterContentInit {
   constructor(public mapService: MapService) {}
 
-  ngOnInit(): void {}
+  ngAfterContentInit(): void {
+    /** Update coordinates based on where mouse cursor is */
+    // fromEvent(this.map, "pointermove")
+    //   .pipe(
+    //     filter((event: MapBrowserEvent) => !event.dragging),
+    //     map(event => this.toLonLat(event.coordinate)),
+    //     takeUntil(this.ngUnsubscribe)
+    //   )
+    //   .subscribe(coords => this.coordinates.next(coords));
+  }
 }

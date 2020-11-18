@@ -1,8 +1,8 @@
-import { Injectable, NgZone, OnDestroy } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import olMap from "ol/Map";
 import { BehaviorSubject, fromEvent, Subject } from "rxjs";
 import View from "ol/View";
-import { fromLonLat, toLonLat, transform } from "ol/proj";
+import { fromLonLat, toLonLat } from "ol/proj";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
 import {
@@ -14,11 +14,10 @@ import {
   tap
 } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { CensusBlock, MapLayerType } from "../models";
+import { CensusBlock } from "../models";
 
-import { TileArcGISRest, Vector as VectorSource } from "ol/source";
-import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
-import { StylesService } from "./styles.service";
+import { TileArcGISRest } from "ol/source";
+import { Tile as TileLayer } from "ol/layer";
 
 const fccBlock = (latitude, longitude): string =>
   `https://geo.fcc.gov/api/census/block/find?latitude=${latitude}&longitude=${longitude}&format=json`;
@@ -55,11 +54,7 @@ export class MapService implements OnDestroy {
 
   map: olMap;
 
-  constructor(
-    private ngZone: NgZone,
-    private http: HttpClient,
-    private styleService: StylesService
-  ) {
+  constructor(private http: HttpClient) {
     this.createMap();
 
     /** Update Zoom Level and Location after map stops moving */
@@ -90,14 +85,22 @@ export class MapService implements OnDestroy {
     setTimeout(() => {
       this.map.setTarget(elementID);
       this.map.updateSize();
-    }, 0);
+    }, 0); // Delay here doesn't totally matter since it should be displaying anyways.
   }
 
   unattach(): void {
     this.map.setTarget(null);
   }
 
-  center(extent: any): void {
+  center(extent?: any): void {
+    if (!extent) {
+      extent = this.map
+        .getLayers()
+        .getArray()[1]
+        .getSource()
+        .getExtent();
+    }
+
     this.map.getView().fit(extent, { padding: [0, 60, 60, 60] });
   }
 

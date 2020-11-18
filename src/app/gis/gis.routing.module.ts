@@ -10,18 +10,16 @@ import {
 const routes: Routes = [
   {
     path: "",
+    component: GisComponent // Agency map
+  },
+  {
+    path: "insured/:insuredID",
     component: GisComponent, // Agency map
     children: [
+      { path: "layout", component: LayoutEditorComponent }, // Layout edit for insured
       {
-        path: "insured/:insuredID",
-        component: GisComponent, // Insured map
-        children: [
-          { path: "layout", component: LayoutEditorComponent }, // Layout edit for insured
-          {
-            path: "ftf/:ftfID",
-            component: FieldEditorComponent
-          }
-        ]
+        path: "ftf/:ftfID",
+        component: FieldEditorComponent
       }
     ]
   },
